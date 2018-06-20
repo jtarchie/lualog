@@ -5,7 +5,9 @@ struct message {};
 %%{
   machine syslog_rfc5424;
 
-  action mark {}
+  action mark {
+    mark = p;
+  }
   action escaped {}
   action message {}
   action paramvalue {}
@@ -74,10 +76,12 @@ struct message {};
 
 %% write data;
 
-int parse(const char* p, int len) {
+int parse(const char* data, int len) {
+  const char *p = data;
   const char* pe = p + len;
   const char* eof = (char*)0;
   int cs;
+  const char *mark;
 
   %% write init;
   %% write exec;
