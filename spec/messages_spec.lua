@@ -1,4 +1,4 @@
-local syslog=require("../parse")
+local syslog=require("../syslog/parser")
 
 describe("given syslog messages", function()
   local messages = {

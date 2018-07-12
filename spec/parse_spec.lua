@@ -1,4 +1,4 @@
-local syslog = require("../parse")
+local syslog=require("../syslog/parser")
 
 describe("syslog message parsing", function()
   it("fails with an invalid message", function()

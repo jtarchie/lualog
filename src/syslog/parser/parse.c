@@ -1,15 +1,15 @@
 
-#line 1 "parse.rl"
+#line 1 "src/syslog/parser/parse.rl"
 #include "parse.h"
 
 struct message {};
 
 
-#line 75 "parse.rl"
+#line 75 "src/syslog/parser/parse.rl"
 
 
 
-#line 13 "parse.c"
+#line 13 "src/syslog/parser/parse.c"
 static const int syslog_rfc5424_start = 1;
 static const int syslog_rfc5424_first_final = 586;
 static const int syslog_rfc5424_error = 0;
@@ -17,7 +17,7 @@ static const int syslog_rfc5424_error = 0;
 static const int syslog_rfc5424_en_main = 1;
 
 
-#line 78 "parse.rl"
+#line 78 "src/syslog/parser/parse.rl"
 
 int parse(const char* data, int len) {
   const char *p = data;
@@ -27,14 +27,14 @@ int parse(const char* data, int len) {
   const char *mark;
 
   
-#line 31 "parse.c"
+#line 31 "src/syslog/parser/parse.c"
 	{
 	cs = syslog_rfc5424_start;
 	}
 
-#line 87 "parse.rl"
+#line 87 "src/syslog/parser/parse.rl"
   
-#line 38 "parse.c"
+#line 38 "src/syslog/parser/parse.c"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -50,7 +50,7 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -59,21 +59,21 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 63 "parse.c"
+#line 63 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr3;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto st2;
 	goto st0;
 tr3:
-#line 23 "parse.rl"
+#line 23 "src/syslog/parser/parse.rl"
 	{}
 	goto st3;
 st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 77 "parse.c"
+#line 77 "src/syslog/parser/parse.c"
 	if ( (*p) == 60 )
 		goto st4;
 	goto st0;
@@ -85,7 +85,7 @@ case 4:
 		goto tr5;
 	goto st0;
 tr5:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -94,7 +94,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 98 "parse.c"
+#line 98 "src/syslog/parser/parse.c"
 	if ( (*p) == 62 )
 		goto tr7;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -117,19 +117,19 @@ case 7:
 		goto tr7;
 	goto st0;
 tr7:
-#line 22 "parse.rl"
+#line 22 "src/syslog/parser/parse.rl"
 	{}
 	goto st8;
 st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-#line 128 "parse.c"
+#line 128 "src/syslog/parser/parse.c"
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr9;
 	goto st0;
 tr9:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -138,21 +138,21 @@ st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 142 "parse.c"
+#line 142 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr10;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto st584;
 	goto st0;
 tr10:
-#line 21 "parse.rl"
+#line 21 "src/syslog/parser/parse.rl"
 	{}
 	goto st10;
 st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-#line 156 "parse.c"
+#line 156 "src/syslog/parser/parse.c"
 	if ( (*p) == 45 )
 		goto st11;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -166,19 +166,19 @@ case 11:
 		goto st12;
 	goto st0;
 tr589:
-#line 16 "parse.rl"
+#line 16 "src/syslog/parser/parse.rl"
 	{}
 	goto st12;
 st12:
 	if ( ++p == pe )
 		goto _test_eof12;
 case 12:
-#line 177 "parse.c"
+#line 177 "src/syslog/parser/parse.c"
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto tr15;
 	goto st0;
 tr15:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -187,26 +187,26 @@ st13:
 	if ( ++p == pe )
 		goto _test_eof13;
 case 13:
-#line 191 "parse.c"
+#line 191 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr16;
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto st298;
 	goto st0;
 tr16:
-#line 20 "parse.rl"
+#line 20 "src/syslog/parser/parse.rl"
 	{}
 	goto st14;
 st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 205 "parse.c"
+#line 205 "src/syslog/parser/parse.c"
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto tr18;
 	goto st0;
 tr18:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -215,26 +215,26 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 219 "parse.c"
+#line 219 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr19;
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto st251;
 	goto st0;
 tr19:
-#line 19 "parse.rl"
+#line 19 "src/syslog/parser/parse.rl"
 	{}
 	goto st16;
 st16:
 	if ( ++p == pe )
 		goto _test_eof16;
 case 16:
-#line 233 "parse.c"
+#line 233 "src/syslog/parser/parse.c"
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto tr21;
 	goto st0;
 tr21:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -243,26 +243,26 @@ st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
-#line 247 "parse.c"
+#line 247 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr22;
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto st124;
 	goto st0;
 tr22:
-#line 18 "parse.rl"
+#line 18 "src/syslog/parser/parse.rl"
 	{}
 	goto st18;
 st18:
 	if ( ++p == pe )
 		goto _test_eof18;
 case 18:
-#line 261 "parse.c"
+#line 261 "src/syslog/parser/parse.c"
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto tr24;
 	goto st0;
 tr24:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -271,21 +271,21 @@ st19:
 	if ( ++p == pe )
 		goto _test_eof19;
 case 19:
-#line 275 "parse.c"
+#line 275 "src/syslog/parser/parse.c"
 	if ( (*p) == 32 )
 		goto tr25;
 	if ( 33 <= (*p) && (*p) <= 126 )
 		goto st93;
 	goto st0;
 tr25:
-#line 17 "parse.rl"
+#line 17 "src/syslog/parser/parse.rl"
 	{}
 	goto st20;
 st20:
 	if ( ++p == pe )
 		goto _test_eof20;
 case 20:
-#line 289 "parse.c"
+#line 289 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 45: goto st586;
 		case 91: goto st21;
@@ -304,7 +304,7 @@ st587:
 case 587:
 	goto tr598;
 tr598:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -313,7 +313,7 @@ st588:
 	if ( ++p == pe )
 		goto _test_eof588;
 case 588:
-#line 317 "parse.c"
+#line 317 "src/syslog/parser/parse.c"
 	goto st588;
 st21:
 	if ( ++p == pe )
@@ -331,7 +331,7 @@ case 21:
 		goto tr29;
 	goto st0;
 tr29:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -340,7 +340,7 @@ st22:
 	if ( ++p == pe )
 		goto _test_eof22;
 case 22:
-#line 344 "parse.c"
+#line 344 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 32: goto tr30;
 		case 33: goto st62;
@@ -353,14 +353,14 @@ case 22:
 		goto st62;
 	goto st0;
 tr30:
-#line 15 "parse.rl"
+#line 15 "src/syslog/parser/parse.rl"
 	{}
 	goto st23;
 st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 364 "parse.c"
+#line 364 "src/syslog/parser/parse.c"
 	if ( (*p) == 33 )
 		goto tr33;
 	if ( (*p) < 62 ) {
@@ -373,7 +373,7 @@ case 23:
 		goto tr33;
 	goto st0;
 tr33:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -382,7 +382,7 @@ st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 386 "parse.c"
+#line 386 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 33: goto st25;
 		case 61: goto tr35;
@@ -821,14 +821,14 @@ case 55:
 		goto tr35;
 	goto st0;
 tr35:
-#line 14 "parse.rl"
+#line 14 "src/syslog/parser/parse.rl"
 	{}
 	goto st56;
 st56:
 	if ( ++p == pe )
 		goto _test_eof56;
 case 56:
-#line 832 "parse.c"
+#line 832 "src/syslog/parser/parse.c"
 	if ( (*p) == 34 )
 		goto st57;
 	goto st0;
@@ -843,20 +843,20 @@ case 57:
 	}
 	goto tr67;
 tr67:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
 	goto st58;
 tr76:
-#line 11 "parse.rl"
+#line 11 "src/syslog/parser/parse.rl"
 	{}
 	goto st58;
 st58:
 	if ( ++p == pe )
 		goto _test_eof58;
 case 58:
-#line 860 "parse.c"
+#line 860 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 34: goto tr71;
 		case 92: goto st60;
@@ -864,62 +864,62 @@ case 58:
 	}
 	goto st58;
 tr68:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
-#line 13 "parse.rl"
+#line 13 "src/syslog/parser/parse.rl"
 	{}
 	goto st59;
 tr71:
-#line 13 "parse.rl"
+#line 13 "src/syslog/parser/parse.rl"
 	{}
 	goto st59;
 tr77:
-#line 11 "parse.rl"
+#line 11 "src/syslog/parser/parse.rl"
 	{}
-#line 13 "parse.rl"
+#line 13 "src/syslog/parser/parse.rl"
 	{}
 	goto st59;
 st59:
 	if ( ++p == pe )
 		goto _test_eof59;
 case 59:
-#line 889 "parse.c"
+#line 889 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 32: goto st23;
 		case 93: goto st589;
 	}
 	goto st0;
 tr32:
-#line 15 "parse.rl"
+#line 15 "src/syslog/parser/parse.rl"
 	{}
 	goto st589;
 st589:
 	if ( ++p == pe )
 		goto _test_eof589;
 case 589:
-#line 903 "parse.c"
+#line 903 "src/syslog/parser/parse.c"
 	switch( (*p) ) {
 		case 32: goto st587;
 		case 91: goto st21;
 	}
 	goto st0;
 tr69:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
 	goto st60;
 tr78:
-#line 11 "parse.rl"
+#line 11 "src/syslog/parser/parse.rl"
 	{}
 	goto st60;
 st60:
 	if ( ++p == pe )
 		goto _test_eof60;
 case 60:
-#line 923 "parse.c"
+#line 923 "src/syslog/parser/parse.c"
 	if ( (*p) == 34 )
 		goto st61;
 	if ( 92 <= (*p) && (*p) <= 93 )
@@ -5518,7 +5518,7 @@ case 551:
 		goto tr16;
 	goto st0;
 tr13:
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
@@ -5527,7 +5527,7 @@ st552:
 	if ( ++p == pe )
 		goto _test_eof552;
 case 552:
-#line 5531 "parse.c"
+#line 5531 "src/syslog/parser/parse.c"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto st553;
 	goto st0;
@@ -6391,25 +6391,25 @@ case 585:
 	{
 	switch ( cs ) {
 	case 588: 
-#line 12 "parse.rl"
+#line 12 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 587: 
-#line 8 "parse.rl"
+#line 8 "src/syslog/parser/parse.rl"
 	{
     mark = p;
   }
-#line 12 "parse.rl"
+#line 12 "src/syslog/parser/parse.rl"
 	{}
 	break;
-#line 6406 "parse.c"
+#line 6406 "src/syslog/parser/parse.c"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 88 "parse.rl"
+#line 88 "src/syslog/parser/parse.rl"
 
   if (cs < syslog_rfc5424_first_final) {
     return -1;
