@@ -5,4 +5,10 @@ ffi.cdef([[
 ]])
 local syslog = ffi.load("parse")
 
-return syslog
+local parse = function(msg)
+  return syslog.parse(msg, msg:len())
+end
+
+return {
+  parse = parse
+}
