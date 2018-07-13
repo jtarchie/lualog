@@ -1,10 +1,10 @@
 local ffi = require("ffi")
 
 ffi.cdef([[
-  struct log {
+  typedef struct {
     int version;
-  };
-  int parse(const char* p, int len, struct log *log);
+  } log;
+  int parse(const char* p, int len, log struct *log);
 ]])
 local syslog = ffi.load("parse")
 

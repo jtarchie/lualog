@@ -1,12 +1,19 @@
 #include "parse.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-struct message {};
+struct log {
+  int version;
+};
 
 %%{
   machine syslog_rfc5424;
 
   action mark {
     mark = p;
+  }
+  action version {
+    log->version = atoi(mark);
   }
   action escaped {}
   action message {}
@@ -18,7 +25,6 @@ struct message {};
   action procid {}
   action appname {}
   action hostname {}
-  action version {}
   action priority {}
   action tcp_len {}
 
@@ -76,7 +82,7 @@ struct message {};
 
 %% write data;
 
-int parse(const char* data, int len) {
+int parse(const char* data, int len, struct log *log) {
   const char *p = data;
   const char* pe = p + len;
   const char* eof = (char*)0;

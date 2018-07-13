@@ -91,10 +91,11 @@ describe("given syslog messages", function()
 
   for _,message in ipairs(messages) do
     it(message.label, function()
+      local _msg, read = syslog.parse(message.input)
       if message.valid then
-        assert.is_equal(syslog.parse(message.input), message.input:len())
+        assert.is_equal(read, message.input:len())
       else
-        assert.is_equal(syslog.parse(message.input), -1)
+        assert.is_equal(read, -1)
       end
     end)
   end
