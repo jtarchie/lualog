@@ -1,9 +1,15 @@
 #include "parse.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct log {
   int version;
+    int severity, facility, priority;
+    char * hostname;
+    char * appname;
+    char * procid;
+    char * msgid;
 };
 
 %%{
@@ -15,6 +21,15 @@ struct log {
   action version {
     log->version = atoi(mark);
   }
+  action priority {
+    log->priority = atoi(mark);
+    log->severity = log->priority & 7;
+    log->facility = log->priority >> 3;
+  }
+  action hostname {
+    log->hostname = malloc(p - mark + 1);
+    strncpy(log->hostname, mark, p - mark);
+  }
   action escaped {}
   action message {}
   action paramvalue {}
@@ -24,8 +39,6 @@ struct log {
   action msgid {}
   action procid {}
   action appname {}
-  action hostname {}
-  action priority {}
   action tcp_len {}
 
 
