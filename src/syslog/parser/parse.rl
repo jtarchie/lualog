@@ -5,11 +5,11 @@
 
 struct log {
   int version;
-    int severity, facility, priority;
-    char * hostname;
-    char * appname;
-    char * procid;
-    char * msgid;
+  int priority;
+  char * hostname;
+  char * appname;
+  char * procid;
+  char * msgid;
 };
 
 %%{
@@ -19,16 +19,26 @@ struct log {
     mark = p;
   }
   action version {
-    log->version = atoi(mark);
+    log->version = strtol(mark, (char **)&p, 10);
   }
   action priority {
-    log->priority = atoi(mark);
-    log->severity = log->priority & 7;
-    log->facility = log->priority >> 3;
+    log->priority = strtol(mark, (char **)&p, 10);
   }
   action hostname {
     log->hostname = malloc(p - mark + 1);
     strncpy(log->hostname, mark, p - mark);
+  }
+  action appname {
+    log->appname = malloc(p - mark + 1);
+    strncpy(log->appname, mark, p - mark);
+  }
+  action msgid {
+    log->msgid = malloc(p - mark + 1);
+    strncpy(log->msgid, mark, p - mark);
+  }
+  action procid {
+    log->procid = malloc(p - mark + 1);
+    strncpy(log->procid, mark, p - mark);
   }
   action escaped {}
   action message {}
@@ -36,9 +46,6 @@ struct log {
   action paramname {}
   action sdid {}
   action timestamp {}
-  action msgid {}
-  action procid {}
-  action appname {}
   action tcp_len {}
 
 

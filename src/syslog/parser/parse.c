@@ -7,15 +7,15 @@
 
 struct log {
   int version;
-    int severity, facility, priority;
-    char * hostname;
-    char * appname;
-    char * procid;
-    char * msgid;
+  int priority;
+  char * hostname;
+  char * appname;
+  char * procid;
+  char * msgid;
 };
 
 
-#line 94 "src/syslog/parser/parse.rl"
+#line 101 "src/syslog/parser/parse.rl"
 
 
 
@@ -24,8 +24,8 @@ static const char _syslog_rfc5424_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
 	3, 1, 4, 1, 5, 1, 6, 1, 
 	7, 1, 8, 1, 9, 1, 10, 1, 
-	11, 1, 12, 1, 13, 2, 0, 5, 
-	2, 0, 6, 2, 4, 6
+	11, 1, 12, 1, 13, 2, 0, 8, 
+	2, 0, 9, 2, 7, 9
 };
 
 static const short _syslog_rfc5424_key_offsets[] = {
@@ -903,14 +903,14 @@ static const short _syslog_rfc5424_trans_targs[] = {
 static const char _syslog_rfc5424_trans_actions[] = {
 	1, 0, 0, 27, 0, 1, 0, 5, 
 	0, 1, 3, 0, 0, 1, 0, 1, 
-	7, 0, 1, 25, 0, 1, 23, 0, 
-	1, 21, 0, 0, 0, 1, 17, 0, 
-	17, 1, 0, 15, 0, 0, 0, 0, 
+	7, 0, 1, 9, 0, 1, 13, 0, 
+	1, 11, 0, 0, 0, 1, 23, 0, 
+	23, 1, 0, 21, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 1, 32, 1, 0, 13, 
-	0, 0, 0, 0, 9, 35, 9, 0, 
+	0, 0, 0, 1, 32, 1, 0, 19, 
+	0, 0, 0, 0, 15, 35, 15, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
@@ -974,7 +974,7 @@ static const char _syslog_rfc5424_trans_actions[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 19, 0, 0, 
+	0, 0, 0, 0, 0, 25, 0, 0, 
 	0, 0, 0, 0, 0, 0, 1, 0
 };
 
@@ -1052,7 +1052,7 @@ static const char _syslog_rfc5424_eof_actions[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 29, 11, 0
+	0, 0, 0, 29, 17, 0
 };
 
 static const int syslog_rfc5424_start = 1;
@@ -1062,7 +1062,7 @@ static const int syslog_rfc5424_error = 0;
 static const int syslog_rfc5424_en_main = 1;
 
 
-#line 97 "src/syslog/parser/parse.rl"
+#line 104 "src/syslog/parser/parse.rl"
 
 int parse(const char* data, int len, struct log *log) {
   const char *p = data;
@@ -1077,7 +1077,7 @@ int parse(const char* data, int len, struct log *log) {
 	cs = syslog_rfc5424_start;
 	}
 
-#line 106 "src/syslog/parser/parse.rl"
+#line 113 "src/syslog/parser/parse.rl"
   
 #line 1083 "src/syslog/parser/parse.c"
 	{
@@ -1162,61 +1162,68 @@ _match:
 	case 1:
 #line 21 "src/syslog/parser/parse.rl"
 	{
-    log->version = atoi(mark);
+    log->version = strtol(mark, (char **)&p, 10);
   }
 	break;
 	case 2:
 #line 24 "src/syslog/parser/parse.rl"
 	{
-    log->priority = atoi(mark);
-    log->severity = log->priority & 7;
-    log->facility = log->priority >> 3;
+    log->priority = strtol(mark, (char **)&p, 10);
   }
 	break;
 	case 3:
-#line 29 "src/syslog/parser/parse.rl"
+#line 27 "src/syslog/parser/parse.rl"
 	{
     log->hostname = malloc(p - mark + 1);
     strncpy(log->hostname, mark, p - mark);
   }
 	break;
 	case 4:
-#line 33 "src/syslog/parser/parse.rl"
-	{}
+#line 31 "src/syslog/parser/parse.rl"
+	{
+    log->appname = malloc(p - mark + 1);
+    strncpy(log->appname, mark, p - mark);
+  }
+	break;
+	case 5:
+#line 35 "src/syslog/parser/parse.rl"
+	{
+    log->msgid = malloc(p - mark + 1);
+    strncpy(log->msgid, mark, p - mark);
+  }
 	break;
 	case 6:
-#line 35 "src/syslog/parser/parse.rl"
-	{}
+#line 39 "src/syslog/parser/parse.rl"
+	{
+    log->procid = malloc(p - mark + 1);
+    strncpy(log->procid, mark, p - mark);
+  }
 	break;
 	case 7:
-#line 36 "src/syslog/parser/parse.rl"
-	{}
-	break;
-	case 8:
-#line 37 "src/syslog/parser/parse.rl"
+#line 43 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 9:
-#line 38 "src/syslog/parser/parse.rl"
+#line 45 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 10:
-#line 39 "src/syslog/parser/parse.rl"
+#line 46 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 11:
-#line 40 "src/syslog/parser/parse.rl"
+#line 47 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 12:
-#line 41 "src/syslog/parser/parse.rl"
+#line 48 "src/syslog/parser/parse.rl"
 	{}
 	break;
 	case 13:
-#line 42 "src/syslog/parser/parse.rl"
+#line 49 "src/syslog/parser/parse.rl"
 	{}
 	break;
-#line 1220 "src/syslog/parser/parse.c"
+#line 1227 "src/syslog/parser/parse.c"
 		}
 	}
 
@@ -1238,11 +1245,11 @@ _again:
     mark = p;
   }
 	break;
-	case 5:
-#line 34 "src/syslog/parser/parse.rl"
+	case 8:
+#line 44 "src/syslog/parser/parse.rl"
 	{}
 	break;
-#line 1246 "src/syslog/parser/parse.c"
+#line 1253 "src/syslog/parser/parse.c"
 		}
 	}
 	}
@@ -1250,7 +1257,7 @@ _again:
 	_out: {}
 	}
 
-#line 107 "src/syslog/parser/parse.rl"
+#line 114 "src/syslog/parser/parse.rl"
 
   if (cs < syslog_rfc5424_first_final) {
     return -1;
